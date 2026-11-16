@@ -18,3 +18,10 @@ Thumbs.db
 
 # Logs
 *.log
+# Python local environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Vercel local project metadata
+.vercel/
