@@ -1,0 +1,11 @@
+.git/
+.sf/
+.vercel/
+**/node_modules/
+**/.venv/
+**/__pycache__/
+**/dist/
+**/.env
+**/.env.*
+**/*.log
+.playwright-mcp/
