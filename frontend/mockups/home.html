@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      margin: 0
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden] {
+      display: none !important
+    }
+  </style>
+  <title>OneVet Network Home</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <style>
+    /* Layout: crisis strip, white brand header, navy search band with assessment panel, plain category list + results list, partner note, footer */
+    :root {
+      --bg: #ffffff;
+      --alt: #f1f3f6;
+      --ink: #1b2430;
+      --muted: #5b6675;
+      --line: #d6dbe2;
+      --navy: #0c2f5a;
+      --navy-ink: #ffffff;
+      --red: #a8232f;
+      --red-ink: #ffffff;
+      --link: #0c4a8f;
+      --brandbar: #ffffff;
+      --brandbar-ink: #0c2f5a;
+      --ok: #2b6a33;
+      --ok-bg: #e3f1e4;
+      --warn: #7a4f00;
+      --warn-bg: #fdf0d2;
+      --font-head: "Montserrat", system-ui, sans-serif;
+      --font-body: "Public Sans", system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #10161f;
+        --alt: #161f2b;
+        --ink: #e6eaf0;
+        --muted: #a0aaba;
+        --line: #2a3646;
+        --navy: #0c2f5a;
+        --navy-ink: #ffffff;
+        --red: #c8414c;
+        --red-ink: #ffffff;
+        --link: #8db8ef;
+        --brandbar: #ffffff;
+        --brandbar-ink: #0c2f5a;
+        --ok: #93d39b;
+        --ok-bg: #1d3322;
+        --warn: #f0c870;
+        --warn-bg: #382c12;
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #10161f;
+      --alt: #161f2b;
+      --ink: #e6eaf0;
+      --muted: #a0aaba;
+      --line: #2a3646;
+      --navy: #0c2f5a;
+      --navy-ink: #ffffff;
+      --red: #c8414c;
+      --red-ink: #ffffff;
+      --link: #8db8ef;
+      --brandbar: #ffffff;
+      --brandbar-ink: #0c2f5a;
+      --ok: #93d39b;
+      --ok-bg: #1d3322;
+      --warn: #f0c870;
+      --warn-bg: #382c12;
+      color-scheme: dark
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      z-index: 10;
+      background: var(--red)
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px))
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      text-wrap: balance;
+      margin: 0;
+      line-height: 1.15
+    }
+
+    a {
+      color: var(--link)
+    }
+
+    :focus-visible {
+      outline: 3px solid #f2b631;
+      outline-offset: 2px
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer
+    }
+
+    /* Crisis strip */
+    .crisis {
+      background: var(--red);
+      color: var(--red-ink);
+      font-size: 15px
+    }
+
+    .crisis .wrap {
+      padding-block: 7px;
+      display: flex;
+      gap: 6px 16px;
+      flex-wrap: wrap
+    }
+
+    .crisis b {
+      font-weight: 700
+    }
+
+    /* Brand header */
+    header {
+      background: var(--brandbar);
+      color: var(--brandbar-ink);
+      border-bottom: 1px solid #d6dbe2
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-block: 12px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--brandbar-ink)
+    }
+
+    .shield {
+      width: 42px;
+      height: 50px;
+      flex: none;
+      background: url("../public/logo.png") no-repeat;
+      background-size: 91px 91px;
+      background-position: -24.5px -8px
+    }
+
+    .word {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: -.01em
+    }
+
+    .word span {
+      color: #a8232f
+    }
+
+    .word small {
+      display: block;
+      font-size: 10.5px;
+      letter-spacing: .42em;
+      color: #5f6c7d;
+      font-weight: 700;
+      margin-top: 4px
+    }
+
+    .nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+      font-size: 16px
+    }
+
+    .nav ul a {
+      color: var(--brandbar-ink);
+      text-decoration: none;
+      padding-block: 6px;
+      border-bottom: 3px solid transparent
+    }
+
+    .nav ul a:hover,
+    .nav ul a[aria-current] {
+      border-bottom-color: #a8232f
+    }
+
+    .nav .actions {
+      margin-left: auto;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-weight: 600;
+      font-size: 16px
+    }
+
+    .nav .actions a {
+      color: var(--brandbar-ink)
+    }
+
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 4px;
+      padding: 10px 18px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      line-height: 1.3
+    }
+
+    .btn-red {
+      background: #a8232f;
+      color: #fff
+    }
+
+    .btn-red:hover {
+      background: #8d1c27
+    }
+
+    .nav .actions .btn-red {
+      color: #fff
+    }
+
+    @media (max-width:900px) {
+      .nav ul {
+        display: none
+      }
+    }
+
+    @media (max-width:420px) {
+      .signin {
+        display: none
+      }
+
+      .word {
+        font-size: 21px
+      }
+    }
+
+    /* Search band */
+    .band {
+      background: var(--navy);
+      color: var(--navy-ink);
+      padding-block: 44px 52px
+    }
+
+    .band-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start
+    }
+
+    @media (max-width:900px) {
+      .band-grid {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+    }
+
+    .band h1 {
+      font-size: clamp(30px, 4vw, 42px)
+    }
+
+    .band .lede {
+      font-size: 18px;
+      margin: 12px 0 24px;
+      max-width: 36em;
+      color: #d5deea
+    }
+
+    .search-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px
+    }
+
+    .search {
+      display: flex;
+      gap: 0
+    }
+
+    .search input {
+      flex: 1;
+      min-width: 0;
+      font: inherit;
+      font-size: 18px;
+      padding: 12px 14px;
+      border: 2px solid #fff;
+      border-radius: 4px 0 0 4px;
+      background: #fff;
+      color: #1b2430
+    }
+
+    .search button {
+      background: #a8232f;
+      color: #fff;
+      border: 0;
+      border-radius: 0 4px 4px 0;
+      padding: 0 24px;
+      font-weight: 700;
+      font-size: 17px
+    }
+
+    .search button:hover {
+      background: #8d1c27
+    }
+
+    .quick {
+      margin-top: 14px;
+      font-size: 15px;
+      color: #d5deea
+    }
+
+    .quick a {
+      color: #fff;
+      margin-right: 14px;
+      white-space: nowrap
+    }
+
+    .panel {
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 4px;
+      padding: 22px 22px 18px
+    }
+
+    .panel h2 {
+      font-size: 20px
+    }
+
+    .panel p {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 4px 0 16px
+    }
+
+    .field {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 12px
+    }
+
+    .field label {
+      font-size: 15px;
+      font-weight: 600
+    }
+
+    .field select,
+    .field input {
+      font: inherit;
+      font-size: 16px;
+      padding: 9px 10px;
+      border: 1px solid var(--muted);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--ink);
+      width: 100%
+    }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .panel .btn {
+      background: var(--navy);
+      color: #fff;
+      width: 100%;
+      margin-top: 4px
+    }
+
+    .panel .fine {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 10px 0 0
+    }
+
+    /* Main content */
+    .content {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 48px;
+      padding-block: 44px 56px
+    }
+
+    @media (max-width:860px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 28px
+      }
+    }
+
+    aside h2,
+    .results h2 {
+      font-size: 22px;
+      margin-bottom: 12px
+    }
+
+    .cats {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line)
+    }
+
+    .cats li {
+      border-bottom: 1px solid var(--line)
+    }
+
+    .cats button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: 0;
+      padding: 11px 4px;
+      color: var(--link);
+      font-weight: 600;
+      text-align: left
+    }
+
+    .cats button:hover {
+      text-decoration: underline
+    }
+
+    .cats button[aria-pressed="true"] {
+      color: var(--ink);
+      box-shadow: inset 4px 0 0 #a8232f;
+      padding-left: 14px
+    }
+
+    .cats span {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 15px
+    }
+
+    @media (max-width:860px) {
+      .cats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+        border-top: 0
+      }
+    }
+
+    .results-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px
+    }
+
+    .results-head h2 {
+      margin: 0
+    }
+
+    .results-head .count {
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .email {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: underline;
+      font-size: 15px
+    }
+
+    .prog {
+      padding-block: 18px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 20px
+    }
+
+    .prog h3 {
+      font-size: 18px;
+      font-weight: 700
+    }
+
+    .prog h3 a {
+      color: var(--link);
+      text-decoration: none
+    }
+
+    .prog h3 a:hover {
+      text-decoration: underline
+    }
+
+    .prog .org {
+      font-size: 15px;
+      color: var(--muted)
+    }
+
+    .prog p {
+      grid-column: 1/-1;
+      margin: 4px 0 0;
+      font-size: 16px;
+      max-width: 62ch
+    }
+
+    .status {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 3px;
+      white-space: nowrap;
+      align-self: start
+    }
+
+    .status.ok {
+      background: var(--ok-bg);
+      color: var(--ok)
+    }
+
+    .status.check {
+      background: var(--warn-bg);
+      color: var(--warn)
+    }
+
+    .match {
+      font-size: 14px;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap
+    }
+
+    .match b {
+      color: var(--ink)
+    }
+
+    .side {
+      display: grid;
+      gap: 6px;
+      justify-items: end
+    }
+
+    @media (max-width:520px) {
+      .prog {
+        grid-template-columns: 1fr
+      }
+
+      .side {
+        justify-items: start;
+        grid-auto-flow: column;
+        align-items: center
+      }
+    }
+
+    .empty {
+      padding: 28px 0;
+      color: var(--muted)
+    }
+
+    .sample {
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 14px
+    }
+
+
+    footer {
+      background: #0a2240;
+      color: #d5deea;
+      font-size: 15px
+    }
+
+    footer .wrap {
+      padding-block: 36px 28px;
+      display: grid;
+      grid-template-columns: auto 1fr 1fr 1fr;
+      gap: 28px 48px
+    }
+
+    @media (max-width:760px) {
+      footer .wrap {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    footer .logo-card {
+      background: #fff;
+      border-radius: 4px;
+      width: 120px;
+      height: 120px;
+      background-image: url("../public/logo.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center
+    }
+
+    footer h3 {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px
+    }
+
+    footer ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 4px
+    }
+
+    footer a {
+      color: #d5deea
+    }
+
+    footer .legal {
+      grid-column: 1/-1;
+      border-top: 1px solid #23426a;
+      padding-top: 16px;
+      color: #9fb0c6;
+      font-size: 14px
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 11px 18px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 15px;
+      z-index: 20;
+      max-width: calc(100% - 32px)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="crisis">
+    <div class="wrap">
+      <span><b>Veterans Crisis Line:</b> Dial 988 then press 1</span>
+      <span>Text 838255</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="OneVet Network home">
+        <span class="shield" role="img" aria-hidden="true"></span>
+        <span class="word">One<span>Vet</span><small>NETWORK</small></span>
+      </a>
+      <ul>
+        <li><a href="#top" aria-current="page">Find programs</a></li>
+        <li><a href="#assess">Get matched</a></li>
+        <li><a href="#portal">My portal</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <div class="actions">
+        <a class="signin" href="#signin">Sign in</a>
+        <a class="btn btn-red" href="#register">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="band">
+      <div class="wrap band-grid">
+        <div>
+          <h1>Find programs and services for veterans</h1>
+          <p class="lede">Health care, housing, jobs, school and more from the VA, your state, and local nonprofits,
+            searchable in one place.</p>
+          <form id="searchForm" role="search">
+            <label class="search-label" for="q">Search programs</label>
+            <div class="search">
+              <input id="q" type="search" placeholder="e.g. GI Bill, rent help, PTSD counseling" autocomplete="off">
+              <button type="submit">Search</button>
+            </div>
+          </form>
+          <div class="quick">Common searches:
+            <a href="#" data-q="GI Bill">GI Bill</a>
+            <a href="#" data-q="housing">Housing</a>
+            <a href="#" data-q="disability">Disability pay</a>
+            <a href="#" data-q="counseling">Counseling</a>
+          </div>
+        </div>
+
+        <form class="panel" id="assess">
+          <h2>Not sure where to start?</h2>
+          <p>Answer a few questions and we'll list the programs that fit you best.</p>
+          <div class="field">
+            <label for="branch">Branch of service</label>
+            <select id="branch">
+              <option>Army</option>
+              <option>Navy</option>
+              <option>Air Force</option>
+              <option selected>Marine Corps</option>
+              <option>Coast Guard</option>
+              <option>Space Force</option>
+              <option>National Guard / Reserve</option>
+            </select>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="rating">VA disability rating</label>
+              <select id="rating">
+                <option>None</option>
+                <option>10–30%</option>
+                <option selected>40–60%</option>
+                <option>70–100%</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="zip">ZIP code</label>
+              <input id="zip" inputmode="numeric" maxlength="5" value="92054">
+            </div>
+          </div>
+          <div class="field">
+            <label for="need">What do you need help with?</label>
+            <select id="need">
+              <option>Healthcare</option>
+              <option>Housing</option>
+              <option selected>Employment</option>
+              <option>Education</option>
+              <option>Mental health</option>
+            </select>
+          </div>
+          <button class="btn" type="submit">Show my matches</button>
+          <p class="fine">No account needed. Sign in to save your answers.</p>
+        </form>
+      </div>
+    </section>
+
+    <div class="wrap content">
+      <aside>
+        <h2>Browse by topic</h2>
+        <ul class="cats" id="cats"></ul>
+      </aside>
+      <section class="results" id="results">
+        <div class="results-head">
+          <h2 id="resultsTitle">Popular programs</h2>
+          <span class="count"><span id="resultsCount"></span> · <button class="email" id="emailBtn" type="button">Email
+              these results</button></span>
+        </div>
+        <div id="list"></div>
+        <p class="sample">Mockup: programs and match scores are sample data.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo-card" role="img" aria-label="OneVet Network logo"></div>
+      <div>
+        <h3>Find help</h3>
+        <ul>
+          <li><a href="#">Search programs</a></li>
+          <li><a href="#">Get matched</a></li>
+          <li><a href="#">Browse topics</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Your account</h3>
+        <ul>
+          <li><a href="#">Sign in</a></li>
+          <li><a href="#">Create account</a></li>
+          <li><a href="#">Veteran portal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>OneVet Network</h3>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="legal">OneVet Network is an independent directory and is not part of the U.S. Department of Veterans
+        Affairs.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script>
+    const CATS = ['Healthcare', 'Housing', 'Employment', 'Education', 'Disability', 'Mental health', 'Legal', 'Family'];
+    const PROGRAMS = [
+      { name: 'VA Health Care', org: 'U.S. Department of Veterans Affairs', cat: 'Healthcare', desc: 'Primary care, specialty care, prescriptions and mental health care at VA medical centers and approved community providers.', elig: true, score: 94 },
+      { name: 'Post-9/11 GI Bill (Chapter 33)', org: 'U.S. Department of Veterans Affairs', cat: 'Education', desc: 'Pays tuition plus a monthly housing allowance and book stipend for college, trade school and apprenticeships.', elig: true, score: 88 },
+      { name: 'Veteran Readiness and Employment (VR&E)', org: 'U.S. Department of Veterans Affairs', cat: 'Employment', desc: 'Job training, résumé help and career counseling for veterans with a service-connected disability.', elig: true, score: 97 },
+      { name: 'Supportive Services for Veteran Families (SSVF)', org: 'Local providers funded by the VA', cat: 'Housing', desc: 'Help with rent, deposits and utilities for veteran families who are homeless or about to lose housing.', elig: false, score: 71 },
+      { name: 'HUD-VASH Housing Vouchers', org: 'HUD and the VA', cat: 'Housing', desc: 'Rental vouchers paired with VA case management for veterans experiencing homelessness.', elig: false, score: 64 },
+      { name: 'VA Disability Compensation', org: 'U.S. Department of Veterans Affairs', cat: 'Disability', desc: 'Tax-free monthly payment for conditions caused or made worse by your military service.', elig: true, score: 90 },
+      { name: 'Vet Center Counseling', org: 'U.S. Department of Veterans Affairs', cat: 'Mental health', desc: 'Free, confidential counseling for combat veterans and their families, including PTSD and grief support.', elig: true, score: 85 },
+      { name: 'Hire Heroes USA', org: 'Nonprofit', cat: 'Employment', desc: 'One-on-one career coaching and job placement for transitioning service members and military spouses.', elig: true, score: 82 },
+      { name: 'Veterans Legal Clinic', org: 'Local law school partners', cat: 'Legal', desc: 'Free help with VA claim appeals, discharge upgrades and family law.', elig: false, score: 58 },
+      { name: 'Fry Scholarship and DEA', org: 'U.S. Department of Veterans Affairs', cat: 'Family', desc: 'Education benefits for spouses and children of service members who died or became permanently disabled in service.', elig: false, score: 52 }
+    ];
+    const $ = s => document.querySelector(s);
+    const scrollOpts = () => ({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+
+    $('#cats').innerHTML = CATS.map(c => {
+      const n = PROGRAMS.filter(p => p.cat === c).length;
+      return `<li><button type="button" data-cat="${c}" aria-pressed="false">${c} <span>${n}</span></button></li>`;
+    }).join('');
+
+    function setActiveCat(c) { document.querySelectorAll('.cats button').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === c)); }
+
+    function render(items, title, showScore) {
+      $('#resultsTitle').textContent = title;
+      $('#resultsCount').textContent = `${items.length} program${items.length === 1 ? '' : 's'}`;
+      $('#list').innerHTML = items.length ? items.map(p => `
+    <article class="prog">
+      <div>
+        <h3><a href="#">${p.name}</a></h3>
+        <div class="org">${p.org} · ${p.cat}</div>
+      </div>
+      <div class="side">
+        <span class="status ${p.elig ? 'ok' : 'check'}">${p.elig ? 'You likely qualify' : 'Check eligibility'}</span>
+        ${showScore ? `<span class="match"><b>${p.score}%</b> match</span>` : ''}
+      </div>
+      <p>${p.desc}</p>
+    </article>`).join('')
+        : `<p class="empty">No programs match that search. Try a broader word like “housing”, or pick a topic on the left.</p>`;
+    }
+
+    function search(q, cat) {
+      q = (q || '').trim();
+      const lq = q.toLowerCase();
+      const items = PROGRAMS.filter(p => (!cat || p.cat === cat) && (!lq || `${p.name} ${p.desc} ${p.cat} ${p.org}`.toLowerCase().includes(lq)));
+      setActiveCat(cat);
+      render(items, cat ? cat : `Results for “${q}”`, false);
+      $('#results').scrollIntoView(scrollOpts());
+    }
+
+    $('#searchForm').addEventListener('submit', e => { e.preventDefault(); const q = $('#q').value; q.trim() ? search(q, '') : search('', ''); });
+    document.querySelectorAll('.quick a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); $('#q').value = a.dataset.q; search(a.dataset.q, ''); }));
+    $('#cats').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; $('#q').value = ''; search('', b.dataset.cat); });
+
+    $('#assess').addEventListener('submit', e => {
+      e.preventDefault();
+      const need = $('#need').value;
+      const ranked = PROGRAMS.map(p => ({ ...p, score: Math.min(99, p.score + (p.cat === need ? 6 : 0)) })).sort((a, b) => b.score - a.score).slice(0, 5);
+      setActiveCat('');
+      render(ranked, `Best matches for you (${$('#branch').value}, ${$('#rating').value})`, true);
+      $('#results').scrollIntoView(scrollOpts());
+    });
+
+    let t;
+    $('#emailBtn').addEventListener('click', () => {
+      const el = $('#toast');
+      el.textContent = 'Sign in to email these results to yourself.';
+      el.hidden = false; clearTimeout(t); t = setTimeout(() => el.hidden = true, 2800);
+    });
+
+    render(PROGRAMS.slice(0, 5), 'Popular programs', false);
+  </script>
+</body>
+
+</html>

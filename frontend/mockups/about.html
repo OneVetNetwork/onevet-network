@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>About OneVet Network</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: crisis strip, brand header, navy title band, reading column with side facts box, data/privacy split, FAQ, contact form, footer */
+:root{
+  --bg:#ffffff; --alt:#f1f3f6; --ink:#1b2430; --muted:#5b6675; --line:#d6dbe2;
+  --navy:#0c2f5a; --red:#a8232f; --link:#0c4a8f; --head:#0c2f5a;
+  --ok:#2b6a33; --no:#8a1f28;
+  --font-head:"Montserrat",system-ui,sans-serif; --font-body:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10161f; --alt:#161f2b; --ink:#e6eaf0; --muted:#a0aaba; --line:#2a3646;
+  --red:#c8414c; --link:#8db8ef; --head:#e6eaf0; --ok:#93d39b; --no:#f2a0a7; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161f; --alt:#161f2b; --ink:#e6eaf0; --muted:#a0aaba; --line:#2a3646;
+  --red:#c8414c; --link:#8db8ef; --head:#e6eaf0; --ok:#93d39b; --no:#f2a0a7; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#a8232f}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font-head);font-weight:800;text-wrap:balance;margin:0;line-height:1.2}
+h2{font-size:clamp(22px,2.6vw,28px);color:var(--head)}
+a{color:var(--link)}
+:focus-visible{outline:3px solid #f2b631;outline-offset:2px}
+button{font:inherit;cursor:pointer}
+p{margin:0}
+
+.crisis{background:#a8232f;color:#fff;font-size:15px}
+.crisis .wrap{padding-block:7px;display:flex;gap:6px 16px;flex-wrap:wrap}
+
+header{background:#fff;color:#0c2f5a;border-bottom:1px solid #d6dbe2}
+.nav{display:flex;align-items:center;gap:28px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0c2f5a}
+.shield{width:42px;height:50px;flex:none;background:url("../public/logo.png") no-repeat;background-size:91px 91px;background-position:-24.5px -8px}
+.word{font-family:var(--font-head);font-weight:800;font-size:25px;line-height:1;letter-spacing:-.01em}
+.word span{color:#a8232f}
+.word small{display:block;font-size:10.5px;letter-spacing:.42em;color:#5f6c7d;font-weight:700;margin-top:4px}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;font-weight:600;font-size:16px}
+.nav ul a{color:#0c2f5a;text-decoration:none;padding-block:6px;border-bottom:3px solid transparent}
+.nav ul a:hover,.nav ul a[aria-current]{border-bottom-color:#a8232f}
+.nav .actions{margin-left:auto;display:flex;gap:16px;align-items:center;font-weight:600;font-size:16px}
+.nav .actions a{color:#0c2f5a}
+.btn{display:inline-block;border:0;border-radius:4px;padding:10px 18px;font-weight:700;font-size:16px;text-decoration:none;line-height:1.3}
+.btn-red{background:#a8232f;color:#fff}
+.btn-red:hover{background:#8d1c27}
+.nav .actions .btn-red{color:#fff}
+@media (max-width:900px){.nav ul{display:none}}
+@media (max-width:420px){.signin{display:none}.word{font-size:21px}}
+
+.band{background:#0c2f5a;color:#fff}
+.band .wrap{padding-block:44px 48px}
+.crumbs{font-size:14px;color:#c3cfdf;margin-bottom:10px}
+.crumbs a{color:#fff}
+.band h1{font-size:clamp(30px,4vw,42px)}
+.band p{font-size:19px;color:#d5deea;max-width:40em;margin-top:12px}
+
+section.s{padding-block:48px;border-bottom:1px solid var(--line)}
+section.s:last-of-type{border-bottom:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:56px;align-items:start}
+@media (max-width:900px){.two{grid-template-columns:1fr;gap:32px}}
+.prose{display:grid;gap:16px;max-width:65ch}
+.prose h2{margin-bottom:4px}
+
+.facts{background:var(--alt);border-left:4px solid #a8232f;padding:20px 22px;display:grid;gap:14px}
+.facts h3{font-size:17px}
+.facts ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px}
+.facts li{display:grid;grid-template-columns:20px 1fr;gap:8px}
+.facts .y{color:var(--ok);font-weight:700}
+.facts .n{color:var(--no);font-weight:700}
+
+.uses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;margin-top:24px}
+@media (max-width:640px){.uses{grid-template-columns:1fr}}
+.uses h3{font-size:18px;margin-bottom:4px}
+.uses p{color:var(--muted);font-size:16px}
+.uses a{font-weight:600;font-size:15px}
+
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px}
+@media (max-width:760px){.split{grid-template-columns:1fr;gap:36px}}
+.split p{margin-top:10px}
+.sources{margin-top:16px;border-top:1px solid var(--line)}
+.sources div{display:flex;justify-content:space-between;gap:12px;padding-block:10px;border-bottom:1px solid var(--line);font-size:15px}
+.sources b{font-weight:600}
+.sources span{color:var(--muted);text-align:right}
+.store{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:15px}
+.store h3{font-family:var(--font-body);font-size:14px;font-weight:700;margin-bottom:6px}
+.store ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.store .keep h3{color:var(--ok)}
+.store .never h3{color:var(--no)}
+
+.faq{margin-top:20px;border-top:2px solid var(--ink);max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--font-head);font-size:22px;line-height:1;color:var(--red)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding-bottom:16px;max-width:65ch;color:var(--ink)}
+
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:start}
+@media (max-width:760px){.contact{grid-template-columns:1fr;gap:24px}}
+.contact .prose p{color:var(--muted)}
+form{display:grid;gap:14px}
+.field{display:grid;gap:4px}
+.field label{font-size:15px;font-weight:600}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;padding:9px 10px;border:1px solid var(--muted);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+.field textarea{min-height:120px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+.btn-navy{background:#0c2f5a;color:#fff;justify-self:start}
+.sent{background:var(--alt);border-left:4px solid var(--ok);padding:14px 16px;font-size:15px}
+.sample{font-size:14px;color:var(--muted);font-style:italic;padding-bottom:32px}
+
+footer{background:#0a2240;color:#d5deea;font-size:15px}
+footer .wrap{padding-block:36px 28px;display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:28px 48px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr 1fr}}
+footer .logo-card{background:#fff;border-radius:4px;width:120px;height:120px;background-image:url("../public/logo.png");background-size:contain;background-repeat:no-repeat;background-position:center}
+footer h3{font-family:var(--font-body);font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+footer a{color:#d5deea}
+footer .legal{grid-column:1/-1;border-top:1px solid #23426a;padding-top:16px;color:#9fb0c6;font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="crisis">
+  <div class="wrap">
+    <span><b>Veterans Crisis Line:</b> Dial 988 then press 1</span>
+    <span>Text 838255</span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#" aria-label="OneVet Network home">
+      <span class="shield" aria-hidden="true"></span>
+      <span class="word">One<span>Vet</span><small>NETWORK</small></span>
+    </a>
+    <ul>
+      <li><a href="#">Find programs</a></li>
+      <li><a href="#">Get matched</a></li>
+      <li><a href="#">My portal</a></li>
+      <li><a href="#" aria-current="page">About</a></li>
+    </ul>
+    <div class="actions">
+      <a class="signin" href="#">Sign in</a>
+      <a class="btn btn-red" href="#">Create account</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="band">
+    <div class="wrap">
+      <div class="crumbs"><a href="#">Home</a> / About</div>
+      <h1>About OneVet Network</h1>
+      <p>Veterans shouldn't need a caseworker just to find out what help exists. We put programs from the VA, state agencies and nonprofits in one searchable place.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="s">
+      <div class="two">
+        <div class="prose">
+          <h2>Why we built this</h2>
+          <p>Benefits for veterans are spread across dozens of websites. Federal programs live on VA.gov, state benefits sit with each state's veterans department, and some of the most useful help comes from local nonprofits that are hard to find unless someone tells you about them.</p>
+          <p>Many veterans miss out on programs they qualify for simply because they never heard of them. OneVet Network collects those programs in one directory, matches them to your service history, and tells you up front whether you're likely to qualify.</p>
+          <p>We don't replace your VA representative or a Veterans Service Officer. We help you show up to that conversation already knowing what to ask for.</p>
+        </div>
+        <aside class="facts" aria-label="Quick facts">
+          <h3>The short version</h3>
+          <ul>
+            <li><span class="y">✓</span><span>Free to use, with or without an account</span></li>
+            <li><span class="y">✓</span><span>Federal, state and nonprofit programs in one search</span></li>
+            <li><span class="y">✓</span><span>Open to veterans, service members and their families</span></li>
+            <li><span class="n">✕</span><span>Not part of the VA or any government agency</span></li>
+            <li><span class="n">✕</span><span>We don't file claims or applications for you</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="s">
+      <h2>What you can do here</h2>
+      <div class="uses">
+        <div><h3>Search programs</h3><p>Look up programs by keyword or browse by topic, like housing, education or mental health.</p><a href="#">Search programs →</a></div>
+        <div><h3>Get matched</h3><p>Answer a short set of questions about your service and get a ranked list of programs that fit.</p><a href="#">Start the assessment →</a></div>
+        <div><h3>Check eligibility</h3><p>See whether you likely qualify for a program, and if not, the specific reason why.</p></div>
+        <div><h3>Email your results</h3><p>Send your list to yourself or a VSO rep so you have it when you're ready to apply.</p></div>
+      </div>
+    </section>
+
+    <section class="s">
+      <div class="split">
+        <div>
+          <h2>Where our information comes from</h2>
+          <p>Every program in the directory links back to the organization that runs it. We review listings on a regular schedule and show the date each one was last checked.</p>
+          <div class="sources">
+            <div><b>Federal agencies</b><span>VA, HUD, Department of Labor</span></div>
+            <div><b>State veterans departments</b><span>Benefits by state</span></div>
+            <div><b>Nonprofits and VSOs</b><span>Local and national groups</span></div>
+          </div>
+        </div>
+        <div>
+          <h2>Your privacy</h2>
+          <p>We only ask for what we need to match you with programs. You can edit or delete your profile at any time from your portal.</p>
+          <div class="store">
+            <div class="keep"><h3>What we store</h3><ul><li>Branch of service</li><li>VA disability rating</li><li>ZIP code</li><li>Email address</li></ul></div>
+            <div class="never"><h3>What we never ask for</h3><ul><li>Social Security number</li><li>Medical records</li><li>DD-214 uploads</li><li>Bank details</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="s">
+      <h2>Common questions</h2>
+      <div class="faq">
+        <details open><summary>Is OneVet Network part of the VA?</summary><p>No. We are an independent directory. To apply for VA benefits, you'll still go through VA.gov, a VA office, or an accredited Veterans Service Officer.</p></details>
+        <details><summary>Do I need an account?</summary><p>No. You can search and get matched without signing in. An account lets you save programs, keep your eligibility results, and email them to yourself.</p></details>
+        <details><summary>How accurate are the eligibility results?</summary><p>They're based on the rules each program publishes and the details in your profile. Treat them as a strong starting point. The program itself makes the final decision.</p></details>
+        <details><summary>Can family members use the site?</summary><p>Yes. Spouses, children and caregivers can search for programs, and there's a Family topic for benefits meant for them.</p></details>
+        <details><summary>I found a program that's wrong or out of date. What do I do?</summary><p>Use the contact form below and include the program name. We'll check it against the source and update the listing.</p></details>
+      </div>
+    </section>
+
+    <section class="s">
+      <div class="contact">
+        <div class="prose">
+          <h2>Contact us</h2>
+          <p>Questions about the site, a listing that needs fixing, or feedback on how we can do better. We read every message.</p>
+          <p>If you're in crisis, please don't wait for a reply. Call the Veterans Crisis Line at 988 and press 1.</p>
+        </div>
+        <form id="contactForm">
+          <div class="row2">
+            <div class="field"><label for="c-name">Name</label><input id="c-name" autocomplete="name"></div>
+            <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="c-topic">Topic</label>
+            <select id="c-topic"><option>General question</option><option>Report a wrong listing</option><option>Account help</option><option>Feedback</option></select></div>
+          <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" required></textarea></div>
+          <button class="btn btn-navy" type="submit">Send message</button>
+          <div class="sent" id="sent" hidden>Thanks. This is a mockup, so nothing was sent, but this is where the confirmation would appear.</div>
+        </form>
+      </div>
+    </section>
+    <p class="sample">Mockup: page copy is draft text for review.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo-card" role="img" aria-label="OneVet Network logo"></div>
+    <div><h3>Find help</h3><ul><li><a href="#">Search programs</a></li><li><a href="#">Get matched</a></li><li><a href="#">Browse topics</a></li></ul></div>
+    <div><h3>Your account</h3><ul><li><a href="#">Sign in</a></li><li><a href="#">Create account</a></li><li><a href="#">Veteran portal</a></li></ul></div>
+    <div><h3>OneVet Network</h3><ul><li><a href="#">About us</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="legal">OneVet Network is an independent directory and is not part of the U.S. Department of Veterans Affairs.</div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('sent').hidden = false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      margin: 0
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden] {
+      display: none !important
+    }
+  </style>
+  <title>OneVet Veteran Portal</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <style>
+    /* Layout: crisis strip, signed-in brand header, light page-title band, two columns (recommendations + saved + eligibility history | profile + notifications), footer */
+    :root {
+      --bg: #ffffff;
+      --alt: #f1f3f6;
+      --ink: #1b2430;
+      --muted: #5b6675;
+      --line: #d6dbe2;
+      --navy: #0c2f5a;
+      --red: #a8232f;
+      --link: #0c4a8f;
+      --ok: #2b6a33;
+      --ok-bg: #e3f1e4;
+      --warn: #7a4f00;
+      --warn-bg: #fdf0d2;
+      --no: #8a1f28;
+      --no-bg: #f8e1e3;
+      --font-head: "Montserrat", system-ui, sans-serif;
+      --font-body: "Public Sans", system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #10161f;
+        --alt: #161f2b;
+        --ink: #e6eaf0;
+        --muted: #a0aaba;
+        --line: #2a3646;
+        --red: #c8414c;
+        --link: #8db8ef;
+        --ok: #93d39b;
+        --ok-bg: #1d3322;
+        --warn: #f0c870;
+        --warn-bg: #382c12;
+        --no: #f2a0a7;
+        --no-bg: #3a1a1e;
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #10161f;
+      --alt: #161f2b;
+      --ink: #e6eaf0;
+      --muted: #a0aaba;
+      --line: #2a3646;
+      --red: #c8414c;
+      --link: #8db8ef;
+      --ok: #93d39b;
+      --ok-bg: #1d3322;
+      --warn: #f0c870;
+      --warn-bg: #382c12;
+      --no: #f2a0a7;
+      --no-bg: #3a1a1e;
+      color-scheme: dark
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      z-index: 10;
+      background: #a8232f
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px))
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      text-wrap: balance;
+      margin: 0;
+      line-height: 1.2
+    }
+
+    a {
+      color: var(--link)
+    }
+
+    :focus-visible {
+      outline: 3px solid #f2b631;
+      outline-offset: 2px
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer
+    }
+
+    .crisis {
+      background: #a8232f;
+      color: #fff;
+      font-size: 15px
+    }
+
+    .crisis .wrap {
+      padding-block: 7px;
+      display: flex;
+      gap: 6px 16px;
+      flex-wrap: wrap
+    }
+
+    header {
+      background: #fff;
+      color: #0c2f5a;
+      border-bottom: 1px solid #d6dbe2
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-block: 12px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #0c2f5a
+    }
+
+    .shield {
+      width: 42px;
+      height: 50px;
+      flex: none;
+      background: url("../public/logo.png") no-repeat;
+      background-size: 91px 91px;
+      background-position: -24.5px -8px
+    }
+
+    .word {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: -.01em
+    }
+
+    .word span {
+      color: #a8232f
+    }
+
+    .word small {
+      display: block;
+      font-size: 10.5px;
+      letter-spacing: .42em;
+      color: #5f6c7d;
+      font-weight: 700;
+      margin-top: 4px
+    }
+
+    .nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+      font-size: 16px
+    }
+
+    .nav ul a {
+      color: #0c2f5a;
+      text-decoration: none;
+      padding-block: 6px;
+      border-bottom: 3px solid transparent
+    }
+
+    .nav ul a:hover,
+    .nav ul a[aria-current] {
+      border-bottom-color: #a8232f
+    }
+
+    .user {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0c2f5a;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-head);
+      font-size: 14px
+    }
+
+    .user a {
+      color: #0c2f5a
+    }
+
+    @media (max-width:900px) {
+      .nav ul {
+        display: none
+      }
+    }
+
+    @media (max-width:480px) {
+      .user .name {
+        display: none
+      }
+    }
+
+    .titlebar {
+      background: var(--alt);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .titlebar .wrap {
+      padding-block: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .titlebar h1 {
+      font-size: clamp(26px, 3.4vw, 34px)
+    }
+
+    .titlebar p {
+      margin: 4px 0 0;
+      color: var(--muted)
+    }
+
+    .btn {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 9px 16px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      line-height: 1.3;
+      border: 2px solid transparent
+    }
+
+    .btn-red {
+      background: #a8232f;
+      color: #fff
+    }
+
+    .btn-red:hover {
+      background: #8d1c27
+    }
+
+    .btn-line {
+      background: transparent;
+      border-color: var(--line);
+      color: var(--ink)
+    }
+
+    .btn-line:hover {
+      border-color: var(--muted)
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 48px;
+      padding-block: 36px 56px
+    }
+
+    @media (max-width:900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 36px
+      }
+    }
+
+    .main {
+      display: grid;
+      gap: 44px;
+      min-width: 0
+    }
+
+    .side {
+      display: grid;
+      gap: 28px;
+      align-content: start
+    }
+
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px
+    }
+
+    .sec-head h2 {
+      font-size: 22px
+    }
+
+    .sec-head .meta {
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .textbtn {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: underline;
+      font-size: 15px
+    }
+
+    .prog {
+      padding-block: 16px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) auto;
+      gap: 4px 16px;
+      align-items: start
+    }
+
+    .rank {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--navy);
+      line-height: 1.1
+    }
+
+    :root[data-theme="dark"] .rank {
+      color: var(--ink)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) .rank {
+        color: var(--ink)
+      }
+    }
+
+    .rank small {
+      display: block;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .prog h3 {
+      font-size: 17px;
+      font-weight: 700
+    }
+
+    .prog h3 a {
+      text-decoration: none
+    }
+
+    .prog h3 a:hover {
+      text-decoration: underline
+    }
+
+    .prog .org {
+      font-size: 14px;
+      color: var(--muted)
+    }
+
+    .prog p {
+      margin: 4px 0 0;
+      font-size: 15px;
+      max-width: 60ch
+    }
+
+    .acts {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap
+    }
+
+    .save {
+      background: none;
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink)
+    }
+
+    .save[aria-pressed="true"] {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff
+    }
+
+    .prog.norank {
+      grid-template-columns: minmax(0, 1fr) auto
+    }
+
+    @media (max-width:560px) {
+      .prog {
+        grid-template-columns: 44px minmax(0, 1fr)
+      }
+
+      .acts {
+        grid-column: 2;
+        justify-content: flex-start
+      }
+
+      .prog.norank {
+        grid-template-columns: 1fr
+      }
+
+      .norank .acts {
+        grid-column: 1
+      }
+    }
+
+    .status {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 3px;
+      white-space: nowrap
+    }
+
+    .status.ok {
+      background: var(--ok-bg);
+      color: var(--ok)
+    }
+
+    .status.check {
+      background: var(--warn-bg);
+      color: var(--warn)
+    }
+
+    .status.no {
+      background: var(--no-bg);
+      color: var(--no)
+    }
+
+    .table-wrap {
+      overflow-x: auto
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      min-width: 560px
+    }
+
+    th {
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 10px 12px 8px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    td {
+      padding: 12px 12px 12px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top
+    }
+
+    td.date {
+      white-space: nowrap;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums
+    }
+
+    td .why {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 2px
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 20px
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 12px
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline
+    }
+
+    dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px 14px;
+      font-size: 15px
+    }
+
+    dt {
+      color: var(--muted)
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 600;
+      min-width: 0;
+      overflow-wrap: anywhere
+    }
+
+    .progress {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted)
+    }
+
+    .bar {
+      height: 6px;
+      background: var(--line);
+      border-radius: 3px;
+      margin-top: 6px;
+      overflow: hidden
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 80%;
+      background: var(--ok)
+    }
+
+    .field {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 10px
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 600
+    }
+
+    .field select,
+    .field input {
+      font: inherit;
+      font-size: 15px;
+      padding: 7px 9px;
+      border: 1px solid var(--muted);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--ink);
+      width: 100%
+    }
+
+    .form-acts {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px
+    }
+
+    .form-acts .btn {
+      padding: 7px 14px
+    }
+
+    .btn-navy {
+      background: #0c2f5a;
+      color: #fff
+    }
+
+    .notes {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .notes li {
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 10px
+    }
+
+    .notes li:first-child {
+      border-top: 0;
+      padding-top: 0
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a8232f;
+      margin-top: 8px
+    }
+
+    .notes li.read .dot {
+      background: transparent
+    }
+
+    .notes time {
+      display: block;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .sample {
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
+      margin: 0
+    }
+
+    footer {
+      background: #0a2240;
+      color: #d5deea;
+      font-size: 14px
+    }
+
+    footer .wrap {
+      padding-block: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    footer a {
+      color: #d5deea
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 11px 18px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 15px;
+      z-index: 20;
+      max-width: calc(100% - 32px)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="crisis">
+    <div class="wrap">
+      <span><b>Veterans Crisis Line:</b> Dial 988 then press 1</span>
+      <span>Text 838255</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#" aria-label="OneVet Network home">
+        <span class="shield" aria-hidden="true"></span>
+        <span class="word">One<span>Vet</span><small>NETWORK</small></span>
+      </a>
+      <ul>
+        <li><a href="#">Find programs</a></li>
+        <li><a href="#">Get matched</a></li>
+        <li><a href="#" aria-current="page">My portal</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <div class="user">
+        <span class="avatar" aria-hidden="true">JR</span>
+        <span class="name">Jordan Reyes</span>
+        <a href="#" id="logout">Sign out</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="titlebar">
+      <div class="wrap">
+        <div>
+          <h1>Welcome back, Jordan</h1>
+          <p>You have 2 new program matches since your last visit on Nov 2.</p>
+        </div>
+        <button class="btn btn-red" id="emailAll" type="button">Email my results</button>
+      </div>
+    </div>
+
+    <div class="wrap layout">
+      <div class="main">
+        <section>
+          <div class="sec-head">
+            <h2>Recommended for you</h2>
+            <span class="meta">Ranked by fit with your profile · <button class="textbtn" id="retake"
+                type="button">Retake assessment</button></span>
+          </div>
+          <div id="recs"></div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Saved programs</h2>
+            <span class="meta" id="savedCount"></span>
+          </div>
+          <div id="saved"></div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Eligibility checks</h2>
+            <span class="meta">Your last 4 checks</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Program</th>
+                  <th>Result</th>
+                  <th>Checked</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#">Veteran Readiness and Employment (VR&amp;E)</a></td>
+                  <td><span class="status ok">Eligible</span></td>
+                  <td class="date">Nov 2, 2026</td>
+                </tr>
+                <tr>
+                  <td><a href="#">VA Disability Compensation</a><span class="why">Already receiving: 50% combined
+                      rating.</span></td>
+                  <td><span class="status ok">Eligible</span></td>
+                  <td class="date">Oct 28, 2026</td>
+                </tr>
+                <tr>
+                  <td><a href="#">HUD-VASH Housing Vouchers</a><span class="why">Requires current or recent
+                      homelessness.</span></td>
+                  <td><span class="status no">Not eligible</span></td>
+                  <td class="date">Oct 28, 2026</td>
+                </tr>
+                <tr>
+                  <td><a href="#">Supportive Services for Veteran Families (SSVF)</a><span class="why">Income documents
+                      needed to finish this check.</span></td>
+                  <td><span class="status check">Needs info</span></td>
+                  <td class="date">Oct 15, 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <p class="sample">Mockup: the person, programs and results shown are sample data.</p>
+      </div>
+
+      <aside class="side">
+        <section class="card" id="profileCard">
+          <div class="card-head">
+            <h2>Your profile</h2><button class="textbtn" id="editBtn" type="button">Edit</button>
+          </div>
+          <div id="profileView">
+            <dl>
+              <dt>Branch</dt>
+              <dd id="v-branch">Marine Corps</dd>
+              <dt>Served</dt>
+              <dd>2009–2017</dd>
+              <dt>VA rating</dt>
+              <dd id="v-rating">50%</dd>
+              <dt>Location</dt>
+              <dd id="v-zip">Oceanside, CA 92054</dd>
+              <dt>Email</dt>
+              <dd>jordan.reyes@example.com</dd>
+            </dl>
+            <div class="progress">Profile 80% complete. Add your discharge type to improve matches.
+              <div class="bar"><i></i></div>
+            </div>
+          </div>
+          <form id="profileForm" hidden>
+            <div class="field"><label for="f-branch">Branch</label>
+              <select id="f-branch">
+                <option>Army</option>
+                <option>Navy</option>
+                <option>Air Force</option>
+                <option selected>Marine Corps</option>
+                <option>Coast Guard</option>
+                <option>Space Force</option>
+                <option>National Guard / Reserve</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-rating">VA disability rating</label>
+              <select id="f-rating">
+                <option>None</option>
+                <option>10%</option>
+                <option>30%</option>
+                <option selected>50%</option>
+                <option>70%</option>
+                <option>100%</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-discharge">Discharge type</label>
+              <select id="f-discharge">
+                <option value="">Choose one</option>
+                <option>Honorable</option>
+                <option>General</option>
+                <option>Other than honorable</option>
+              </select>
+            </div>
+            <div class="form-acts"><button class="btn btn-navy" type="submit">Save profile</button><button
+                class="btn btn-line" type="button" id="cancelEdit">Cancel</button></div>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Notifications</h2><button class="textbtn" id="markRead" type="button">Mark all read</button>
+          </div>
+          <ul class="notes" id="notes">
+            <li><span class="dot"></span>
+              <div>New match: <a href="#">Hire Heroes USA</a> career coaching.<time>Today</time></div>
+            </li>
+            <li><span class="dot"></span>
+              <div>Your VR&amp;E eligibility check is complete.<time>Nov 2</time></div>
+            </li>
+            <li class="read"><span class="dot"></span>
+              <div>Results emailed to jordan.reyes@example.com.<time>Oct 28</time></div>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>OneVet Network is an independent directory and is not part of the U.S. Department of Veterans
+        Affairs.</span>
+      <span><a href="#">Privacy</a> · <a href="#">Contact</a></span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script>
+    const RECS = [
+      { id: 1, name: 'Veteran Readiness and Employment (VR&E)', org: 'U.S. Department of Veterans Affairs', desc: 'Job training and career counseling. You qualify based on your 50% service-connected rating.', score: 97, st: 'ok', label: 'Eligible' },
+      { id: 2, name: 'Hire Heroes USA', org: 'Nonprofit', desc: 'Free one-on-one career coaching and job placement for veterans and military spouses.', score: 91, st: 'ok', label: 'You likely qualify', isNew: true },
+      { id: 3, name: 'Post-9/11 GI Bill (Chapter 33)', org: 'U.S. Department of Veterans Affairs', desc: 'You have about 14 months of benefits left for school or job training.', score: 88, st: 'ok', label: 'You likely qualify' },
+      { id: 4, name: 'CalVet Home Loans', org: 'California Department of Veterans Affairs', desc: 'Low-interest home loans for California veterans buying a primary residence.', score: 79, st: 'check', label: 'Check eligibility', isNew: true }
+    ];
+    let saved = new Set([1, 3]);
+    const $ = s => document.querySelector(s);
+
+    function row(p, i, showRank) {
+      const on = saved.has(p.id);
+      return `<article class="prog${showRank ? '' : ' norank'}">
+    ${showRank ? `<div class="rank">${p.score}%<small>match</small></div>` : ''}
+    <div>
+      <h3><a href="#">${p.name}</a>${p.isNew && showRank ? ' <span class="status check" style="margin-left:6px">New</span>' : ''}</h3>
+      <div class="org">${p.org}</div>
+      <p>${p.desc}</p>
+    </div>
+    <div class="acts">
+      <span class="status ${p.st}">${p.label}</span>
+      <button class="save" type="button" data-id="${p.id}" aria-pressed="${on}">${on ? 'Saved' : 'Save'}</button>
+    </div>
+  </article>`;
+    }
+
+    function render() {
+      $('#recs').innerHTML = RECS.map((p, i) => row(p, i, true)).join('');
+      const s = RECS.filter(p => saved.has(p.id));
+      $('#savedCount').textContent = `${s.length} saved`;
+      $('#saved').innerHTML = s.length ? s.map((p, i) => row(p, i, false)).join('')
+        : '<p style="color:var(--muted);padding-top:14px">Nothing saved yet. Use Save on a recommended program to keep it here.</p>';
+    }
+    render();
+
+    document.addEventListener('click', e => {
+      const b = e.target.closest('.save'); if (!b) return;
+      const id = +b.dataset.id; saved.has(id) ? saved.delete(id) : saved.add(id); render();
+    });
+
+    let t;
+    function toast(msg) { const el = $('#toast'); el.textContent = msg; el.hidden = false; clearTimeout(t); t = setTimeout(() => el.hidden = true, 2800); }
+    $('#emailAll').addEventListener('click', () => toast('Sent your recommendations and saved programs to jordan.reyes@example.com (mockup, nothing sent).'));
+    $('#retake').addEventListener('click', () => toast('This would open the needs assessment.'));
+    $('#logout').addEventListener('click', e => { e.preventDefault(); toast('You would be signed out and returned to the home page.'); });
+    $('#markRead').addEventListener('click', () => document.querySelectorAll('#notes li').forEach(li => li.classList.add('read')));
+
+    $('#editBtn').addEventListener('click', () => { $('#profileView').hidden = true; $('#profileForm').hidden = false; $('#editBtn').hidden = true; });
+    $('#cancelEdit').addEventListener('click', () => { $('#profileView').hidden = false; $('#profileForm').hidden = true; $('#editBtn').hidden = false; });
+    $('#profileForm').addEventListener('submit', e => {
+      e.preventDefault();
+      $('#v-branch').textContent = $('#f-branch').value;
+      $('#v-rating').textContent = $('#f-rating').value;
+      if ($('#f-discharge').value) { document.querySelector('.bar i').style.width = '100%'; document.querySelector('.progress').firstChild.textContent = 'Profile complete. '; }
+      $('#cancelEdit').click();
+      toast('Profile saved. Your matches will update.');
+    });
+  </script>
+</body>
+
+</html>
